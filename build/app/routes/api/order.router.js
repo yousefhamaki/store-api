@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const order_controller_1 = __importDefault(require("../../controller/order.controller"));
+const orderRequest_1 = __importDefault(require("../../requests/orderRequest"));
+const Query_middleware_1 = __importDefault(require("../../middleware/Query.middleware"));
+const Authorization_middleware_1 = require("../../middleware/Authorization.middleware");
+const router = (0, express_1.Router)();
+const controller = new order_controller_1.default();
+const requests = new orderRequest_1.default();
+router.post("/add", (0, Query_middleware_1.default)(requests.createOrder), controller.create);
+router.get("/user/:id", (0, Query_middleware_1.default)(requests.checkUuid), Authorization_middleware_1.selfData, controller.getUserOrders);
+router.get("/user/:id/completed", (0, Query_middleware_1.default)(requests.checkUuid), Authorization_middleware_1.selfData, controller.getCompletedOrders);
+router.get("/admin/active", Authorization_middleware_1.isAdmin, controller.getActiveOrders);
+router.put("/admin/update/state", Authorization_middleware_1.isAdmin, (0, Query_middleware_1.default)(requests.updateState), controller.getActiveOrders);
+router.get("/:id", (0, Query_middleware_1.default)(requests.checkUuid), controller.getOrder);
+router.delete("/remove/:id", (0, Query_middleware_1.default)(requests.checkUuid), controller.delete);
+exports.default = router;
