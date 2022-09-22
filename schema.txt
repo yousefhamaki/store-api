@@ -1,0 +1,54 @@
+## users table
+- id
+- first_name
+- lastname
+- email 
+- image
+- password
+- isadmin
+
+
+## products table
+- id
+- name
+- desc
+- price
+- isonsale
+- saleprice
+- images [array]
+
+
+## products features table
+- id
+- product id
+- feature
+
+## orders table
+- id
+- user id
+- status
+//order info
+- fullname: {required: true, type: String},
+- address: {required: true, type: String},
+- city: {required: true, type: String},
+- phone: {required: true, type: Number},
+- postalCode: {required: true, type: String},
+- country: {required: true, type: String},
+- payment id
+
+
+## products orders
+- id
+- product id
+- order id
+- quantity
+
+##
+ payment
+- id: String,
+- status: String,
+- update_time: String,
+- email_address: String,
+- paymentMethod: {required: true, type: String},
+
+
